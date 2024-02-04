@@ -1,0 +1,14 @@
+/* CircleGrid.css */
+@keyframes bubbleUpDown {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px); /* Adjust the value for the desired vertical movement */
+    }
+  }
+  
+  .bubble-animation {
+    animation: bubbleUpDown 2s ease-in-out infinite;
+  }
+  
