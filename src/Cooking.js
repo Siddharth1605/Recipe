@@ -51,7 +51,8 @@ export default function Cooking() {
 
         };
 
-        const foodApi = `http://localhost:8080/api/v1/getFood/${foodId.id}`;
+        const cuisine = localStorage.getItem('cuisine')
+        const foodApi = `http://localhost:8080/api/v1/${cuisine}cuisine/getFood/${foodId.id}`;
         console.log(foodId)
         const fetchFood = async () => 
         {

@@ -5,10 +5,33 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import biriyani from './Assets/biriyani.jpg'
 import './Styles/DishImage.css'
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
+export default function DishImages() {
+  //console.log(itemData)
 
-export default function DishImages({ itemData }) {
-  console.log(itemData)
+  const [itemData, setItemData] = useState([])
+
+  useEffect(() => {
+    const cuisine = localStorage.getItem('cuisine')
+    console.log(cuisine)
+    const api = `http://localhost:8080/api/v1/${cuisine}cuisine/get`
+    const fetchFoods = async () => {
+      try{
+        const response  = await axios.get(api);
+        const foods = response.data;
+        setItemData(foods);
+      }
+      catch(error)
+      {
+        console.error(`Cannot fetch ${cuisine} foods`, error)
+      }
+    }
+
+    fetchFoods();
+  }, [])
+
   return (
     <div style={{ overflow: 'visible', marginTop: '1%', marginLeft: '20%'}}>
     <ImageList sx={{  overflow: 'visible' }} cols={3} >

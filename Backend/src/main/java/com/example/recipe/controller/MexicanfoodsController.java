@@ -14,50 +14,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.recipe.model.Indianfoods;
-import com.example.recipe.service.IndianfoodsService;
+import com.example.recipe.model.Mexicanfoods;
+import com.example.recipe.service.MexicanfoodsService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/indiancuisine")
-public class IndianfoodsController {
-
+@RequestMapping("/api/v1/mexicancuisine")
+public class MexicanfoodsController {
 	@Autowired
-	IndianfoodsService service;
+	MexicanfoodsService service;
 	
 	@GetMapping("/get")
-	public List<Indianfoods> getFoods()
+	public List<Mexicanfoods> get()
 	{
-		return service.getAllFoods();
+		return service.getFoods();
 	}
 	
 	@GetMapping("/getFood/{foodId}")
-	public Optional<Indianfoods> getFoodById(@PathVariable int foodId)
+	public Optional<Mexicanfoods> getFood(@PathVariable int foodId)
 	{
 		return service.getFoodById(foodId);
 	}
 	
 	@PostMapping("/post")
-	public Optional<Indianfoods> postFood(@RequestBody Indianfoods food)
+	public Optional<Mexicanfoods> postFood(@RequestBody Mexicanfoods food)
 	{
 		return service.createFood(food);
 	}
 	
 	@PutMapping("/put/{foodId}")
-	public Optional<Indianfoods> putFood(@RequestBody Indianfoods food, @PathVariable("foodId") int foodId)
+	public Optional<Mexicanfoods> putFood(@RequestBody Mexicanfoods food, @PathVariable int foodId)
 	{
 		return service.updateFood(food);
 	}
 	
-	@DeleteMapping("/deleteAll")
-	public String deleteFoods()
+	@DeleteMapping("/deleteAlle/{foodId}")
+	public String delete(@PathVariable int foodId)
 	{
-		return service.deleteFoods();
+		return service.deleteFood(foodId);
 	}
 	
-	@DeleteMapping("/delete/{foodId}")
-	public String deleteFoodId(@PathVariable("foodId") int foodId)
+	@DeleteMapping("/delete")
+	public String deleteFoods()
 	{
-		return service.deleteFoodById(foodId);
+		return service.deleteAllFoods();
 	}
 }

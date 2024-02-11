@@ -12,16 +12,24 @@ export default function Home( ) {
   const [value, setValue] =  useState(0);
   const [indianFoodItems, setIndianFoodItems] = useState([])
   const handleChange = (event, newValue) => {
+    console.log(newValue);
     setValue(newValue);
-  };
+    if(newValue === 0)
+      localStorage.setItem('cuisine', 'indian');
+    else if(newValue === 1)
+      localStorage.setItem('cuisine', 'chinese');
+    else if(newValue === 2)
+      localStorage.setItem('cuisine', 'mexican')
 
+      console.log(localStorage.getItem('cuisine'))
+  };
   useEffect(() => {
-    const api = `http://localhost:8080/api/v1/get`;
+    const api = `http://localhost:8080/api/v1/indiancuisine/get`;
     const fetchIndianFoods = async () => {
       try{
           const response = await axios.get(api);
           const foods = response.data;
-          console.log(foods);
+          //console.log(foods);
           setIndianFoodItems(foods);
       } catch(error)
       {
@@ -32,7 +40,6 @@ export default function Home( ) {
     fetchIndianFoods();
   },[])
 
-   
   const mexicanFoodItems = [
     {
       foodId: 'm1',
@@ -96,17 +103,15 @@ export default function Home( ) {
         <Tab label="Mexican" />
       </Tabs>
       {value === 0 && (
-        <DishImages itemData={indianFoodItems}/>  
+        <DishImages/>  
       )}
       {value === 1 && (
-        <DishImages itemData={mexicanFoodItems}/>  
+        <DishImages/>  
 
       )}
       {value === 2 && (
-        <DishImages itemData={chineseFoodItems}/>  
+        <DishImages/>  
       )}
     </Box>
   );
 }
-
-
